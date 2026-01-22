@@ -27,20 +27,26 @@
       border: 1px solid #eee;
     }
     .header {
-      background: linear-gradient(135deg, #f8f01b, #fffb07);
+      background: linear-gradient(to bottom,
+        #fffef5 0%,          /* branco bem sutil só no topo */
+        #fffcce 15%,         /* transição rápida para amarelo */
+        #fff399 35%,         /* amarelo mais forte */
+        #ffea60 60%,         /* amarelo vibrante */
+        #ffd900 100%         /* termina no amarelo original intenso */
+      );
       color: #000;
       text-align: center;
-      padding: 40px 20px; /* padding original mantido – não aumentado */
+      padding: 60px 20px 50px;
+      position: relative;
     }
     .header img {
-      width: 250px;          /* Maior para destaque, mas sem alterar o padding do header */
-      max-width: 90%;        /* Evita overflow em telas muito estreitas */
+      width: 220px;
+      max-width: 90%;
       height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       display: block;
       margin-left: auto;
       margin-right: auto;
-      /* Nenhum efeito extra: sem filter, sem sombra, sem wrapper */
     }
     .form-container {
       padding: 40px 30px;
@@ -161,8 +167,8 @@
       .form-container { padding: 30px 20px; }
       .social-buttons { flex-direction: column; gap: 12px; }
       .social-btn { width: 100%; justify-content: center; }
-      .header img { width: 200px; } /* Maior em mobile também, mas proporcional */
-      .header { padding: 35px 15px; } /* Leve ajuste para caber melhor */
+      .header img { width: 180px; }
+      .header { padding: 50px 15px 40px; }
     }
   </style>
 </head>
