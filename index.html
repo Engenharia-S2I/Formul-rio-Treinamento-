@@ -223,7 +223,7 @@
         <!-- Campo de nota normal (substituiu as estrelas) -->
         <div class="form-group">
           <label for="nota">Avaliação do treinamento (0 a 10) *</label>
-          <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" required placeholder="Ex: 8.5" />
+          <input type="number" id="nota" name="nota" min="0" max="10" step="1" required placeholder="Ex: 8" />
         </div>
 
         <!-- Comentário agora obrigatório -->
@@ -246,52 +246,48 @@
     <footer>© 2026 S2i Distribuição Industrial • Soluções em Automação Industrial</footer>
   </div>
 
-  <script>
-    const form = document.getElementById('form');
-    const loading = document.getElementById('loading');
-    const success = document.getElementById('success');
-    const errorMsg = document.getElementById('error');
+<script>
+  const form = document.getElementById('form');
+  const loading = document.getElementById('loading');
+  const success = document.getElementById('success');
+  const errorMsg = document.getElementById('error');
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxUDb7u6yzHD2ffZ3lYN2Ra8w0KKT_vZnJq31ZcmOmpnEGyAyTdDnaEQBd2rr1-rPUO_w/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoC9UIic1PykrLj4MzYiCLX_cOKtolpaqLfiW-JKp5L9-dguhfxpVFvhgXF1Fv6I3Zlw/exec';
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
-      loading.classList.remove('hidden');
-      errorMsg.textContent = '';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
+    loading.classList.remove('hidden');
+    errorMsg.textContent = '';
 
-      const formData = new FormData(form);
+    const formData = new FormData(form);
 
-      // Validação extra no front-end (além do required do HTML)
-      if (!formData.get('nota') || !formData.get('melhorias')) {
+    // Log para debug
+    console.log('Dados enviados:', Object.fromEntries(formData));
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.text();
+      console.log('Resposta do servidor:', result);
+
+      if (result.trim() === 'Sucesso') {
         loading.classList.add('hidden');
-        errorMsg.classList.remove('hidden');
-        errorMsg.textContent = 'Preencha todos os campos obrigatórios (nota e comentário).';
-        return;
+        success.classList.remove('hidden');
+        form.reset();
+      } else {
+        throw new Error('Resposta do servidor: ' + result);
       }
-
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: formData
-        });
-
-        const result = await response.text();
-
-        if (result.trim() === 'Sucesso') {
-          loading.classList.add('hidden');
-          success.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error('Resposta do servidor: ' + result);
-        }
-      } catch (err) {
-        console.error('Erro:', err);
-        loading.classList.add('hidden');
-        errorMsg.classList.remove('hidden');
-        errorMsg.textContent = 'Erro ao enviar. Tente novamente ou verifique os campos.';
-      }
-    });
-  </script>
+    } catch (err) {
+      console.error('Erro completo:', err);
+      loading.classList.add('hidden');
+      errorMsg.classList.remove('hidden');
+      errorMsg.textContent = 'Erro ao enviar.';
+    }
+  });
+</script>
 </body>
 </html>
