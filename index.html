@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avaliação do Treinamento - S2i Distribuição Industrial</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* =============================================
+       ESTILOS GERAIS (seu CSS original mantido intacto)
+    ============================================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+      color: #222;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 620px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+    .header {
+      background: linear-gradient(135deg, #FFD700, #FFC107);
+      color: #000;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .header img {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+    .form-container {
+      padding: 40px 30px;
+      background: #ffffff;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #FFC107;
+      font-size: 1rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      background: #fafafa;
+      color: #333;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #FFD700;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .checkbox-group input {
+      width: auto;
+      accent-color: #FFD700;
+    }
+    button {
+      background: linear-gradient(to right, #FFD700, #FFC107);
+      color: #000;
+      border: none;
+      padding: 18px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
+    }
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+    }
+    .social-buttons {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: transparent;
+      color: #222;
+      border: 2px solid #FFD700;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .social-btn:hover {
+      background: linear-gradient(to right, #FFD700, #FFC107);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+      border-color: transparent;
+    }
+    .social-btn i {
+      font-size: 1.4rem;
+    }
+    .rating-group {
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+    .rating-group input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .rating-group label {
+      font-size: 2.2rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .rating-group label:hover,
+    .rating-group label:hover ~ label {
+      color: #FFD700;
+    }
+    .rating-group input[type="radio"]:checked ~ label {
+      color: #FFD700;
+    }
+    .rating-group input[type="radio"]:checked + label {
+      color: #FFC107;
+    }
+    .msg {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .loading { background: #fffbeb; color: #92400e; border: 1px solid #fde047; }
+    .success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
+    .error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+    .hidden { display: none; }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+    @media (max-width: 600px) {
+      .container { margin: 15px; }
+      .form-container { padding: 30px 20px; }
+      .social-buttons { flex-direction: column; gap: 12px; }
+      .social-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <img src="https://github.com/Engenharia-S2I/Formul-rio-Treinamento-/blob/main/s2i_distribuio_industrial_logo%20(1).jpg?raw=true" alt="S2i Distribuição Industrial" />
+      <h1>Avaliação do Treinamento</h1>
+      <p>Sua opinião nos ajuda a melhorar!</p>
+    </header>
+
+    <div class="form-container">
+      <form id="form">
+
+        <div class="form-group">
+          <label for="empresa">Nome da empresa *</label>
+          <input type="text" id="empresa" name="empresa" required />
+        </div>
+
+        <div class="form-group">
+          <label for="setor">Setor que trabalha *</label>
+          <input type="text" id="setor" name="setor" required placeholder="Ex: Manutenção, Automação, Produção..." />
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp (com DDD) *</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(62) 99999-9999" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required placeholder="seuemail@empresa.com" />
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="atualizacoes" name="atualizacoes" />
+            <label for="atualizacoes">Desejo receber atualizações técnicas periódicas da S2i</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p style="margin-bottom: 16px; color: #555; font-weight: 500; text-align: center; font-size: 1.05rem;">
+            Conecte-se com a S2i:
+          </p>
+          <div class="social-buttons">
+            <a href="https://wa.me/556231420595" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/s2idistribuicaoindustrial" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.linkedin.com/company/s2i-distribui%C3%A7%C3%A3o-industrial" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
+              <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Avaliação do treinamento (clique nas estrelas) *</label>
+          <div class="rating-group">
+            <input type="radio" id="nota10" name="nota" value="10" required /><label for="nota10"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota9" name="nota" value="9" /><label for="nota9"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota8" name="nota" value="8" /><label for="nota8"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota7" name="nota" value="7" /><label for="nota7"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota6" name="nota" value="6" /><label for="nota6"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota5" name="nota" value="5" /><label for="nota5"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota4" name="nota" value="4" /><label for="nota4"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota3" name="nota" value="3" /><label for="nota3"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota2" name="nota" value="2" /><label for="nota2"><i class="fas fa-star"></i></label>
+            <input type="radio" id="nota1" name="nota" value="1" /><label for="nota1"><i class="fas fa-star"></i></label>
+          </div>
+          <div class="rating-text">Nota selecionada: <span id="nota-selecionada">—</span>/10</div>
+        </div>
+
+        <div class="form-group">
+          <label for="melhorias">O que poderia ser melhor? (opcional)</label>
+          <textarea id="melhorias" name="melhorias" rows="5" placeholder="Deixe aqui suas sugestões, críticas construtivas ou comentários..."></textarea>
+        </div>
+
+        <button type="submit">Enviar Avaliação</button>
+      </form>
+
+      <div id="loading" class="msg loading hidden">Enviando avaliação...</div>
+      <div id="success" class="msg success hidden">
+        Obrigado! Avaliação enviada com sucesso.<br>
+        <small>Enviamos um e-mail de agradecimento para você.</small>
+      </div>
+      <div id="error" class="msg error hidden"></div>
+    </div>
+
+    <footer>© 2026 S2i Distribuição Industrial • Soluções em Automação Industrial</footer>
+  </div>
+
+ <script>
+  const form = document.getElementById('form');
+  const loading = document.getElementById('loading');
+  const success = document.getElementById('success');
+  const errorMsg = document.getElementById('error');
+  const notaSelecionada = document.getElementById('nota-selecionada');
+
+  document.querySelectorAll('input[name="nota"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      notaSelecionada.textContent = radio.value;
+    });
+  });
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycPM4Osh34v_mkDwblhZKhftzPFwm0961e45firE8V_Lqpi6s0HMT0nrLCOV6iE71v/exec';  // ← cole a URL nova aqui
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
+    loading.classList.remove('hidden');
+    errorMsg.textContent = '';
+
+    const formData = new FormData(form);  // ← pega todos os campos automaticamente
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.text();
+
+      if (result.trim() === 'Sucesso') {
+        loading.classList.add('hidden');
+        success.classList.remove('hidden');
+        form.reset();
+        notaSelecionada.textContent = '—';
+      } else {
+        throw new Error('Resposta: ' + result);
+      }
+    } catch (err) {
+      console.error('Erro:', err);
+      loading.classList.add('hidden');
+      errorMsg.classList.remove('hidden');
+      errorMsg.textContent = 'Erro ao enviar. Veja console (F12) para detalhes.';
+    }
+  });
+</script>
+</body>
+</html>
