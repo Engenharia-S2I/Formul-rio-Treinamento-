@@ -27,14 +27,20 @@
       border: 1px solid #eee;
     }
     .header {
-      background: linear-gradient(135deg, #FFD700, #FFC107);
+      background: linear-gradient(135deg, #f8f01b, #fffb07);
       color: #000;
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px 20px; /* padding original mantido – não aumentado */
     }
     .header img {
-      width: 100px;
-      margin-bottom: 15px;
+      width: 250px;          /* Maior para destaque, mas sem alterar o padding do header */
+      max-width: 90%;        /* Evita overflow em telas muito estreitas */
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      /* Nenhum efeito extra: sem filter, sem sombra, sem wrapper */
     }
     .form-container {
       padding: 40px 30px;
@@ -120,7 +126,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .social-btn:hover {
-      background: linear-gradient(to right, #FFD700, #FFC107);
+      background: linear-gradient(to right, #FFD700, #edf946);
       color: #000;
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
@@ -155,6 +161,8 @@
       .form-container { padding: 30px 20px; }
       .social-buttons { flex-direction: column; gap: 12px; }
       .social-btn { width: 100%; justify-content: center; }
+      .header img { width: 200px; } /* Maior em mobile também, mas proporcional */
+      .header { padding: 35px 15px; } /* Leve ajuste para caber melhor */
     }
   </style>
 </head>
@@ -162,7 +170,7 @@
 
   <div class="container">
     <header class="header">
-      <img src="https://github.com/Engenharia-S2I/Formul-rio-Treinamento-/blob/main/LOGO%2003.png?raw=true" />
+      <img src="https://raw.githubusercontent.com/Engenharia-S2I/Formul-rio-Treinamento-/main/LOGO%2001%20(1).png" alt="S2i Distribuição Industrial" />
       <h1>Avaliação do Treinamento</h1>
       <p>Sua opinião nos ajuda a melhorar!</p>
     </header>
@@ -217,13 +225,11 @@
           </div>
         </div>
 
-        <!-- Campo de nota normal (substituiu as estrelas) -->
         <div class="form-group">
           <label for="nota">Avaliação do treinamento (0 a 10) *</label>
           <input type="number" id="nota" name="nota" min="0" max="10" step="1" required placeholder="Ex: 8" />
         </div>
 
-        <!-- Comentário agora obrigatório -->
         <div class="form-group">
           <label for="melhorias">O que você mais gostou no treinamento e o que acredita que pode ser melhorado? *</label>
           <textarea id="melhorias" name="melhorias" rows="5" required placeholder="Deixe aqui suas sugestões, críticas construtivas ou comentários..."></textarea>
@@ -259,7 +265,6 @@
 
     const formData = new FormData(form);
 
-    // Log para debug
     console.log('Dados enviados:', Object.fromEntries(formData));
 
     try {
