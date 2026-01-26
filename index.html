@@ -27,17 +27,10 @@
       border: 1px solid #eee;
     }
     .header {
-      background: linear-gradient(to bottom,
-        #fffef5 0%,          /* branco bem sutil só no topo */
-        #fffcce 15%,         /* transição rápida para amarelo */
-        #fff399 35%,         /* amarelo mais forte */
-        #ffea60 60%,         /* amarelo vibrante */
-        #ffd900 100%         /* termina no amarelo original intenso */
-      );
+      background: linear-gradient(to bottom, #fffef5 0%, #fffcce 15%, #fff399 35%, #ffea60 60%, #ffd900 100%);
       color: #000;
       text-align: center;
       padding: 60px 20px 50px;
-      position: relative;
     }
     .header img {
       width: 220px;
@@ -45,19 +38,18 @@
       height: auto;
       margin-bottom: 25px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 25px;
     }
     .form-container {
       padding: 40px 30px;
       background: #ffffff;
     }
     .form-group {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-weight: 600;
       color: #090701;
       font-size: 1rem;
@@ -82,15 +74,29 @@
       border-color: #FFD700;
       box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
     }
-    .checkbox-group {
+    .checkbox-group, .radio-group {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 14px; /* mais espaço entre opções */
       margin-top: 8px;
     }
-    .checkbox-group input {
+    input[type="checkbox"], input[type="radio"] {
       width: auto;
       accent-color: #FFD700;
+    }
+    .radio-group label, .checkbox-group label {
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #temas-container {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease, opacity 0.4s ease;
+      opacity: 0;
+    }
+    #temas-container.visible {
+      max-height: 500px; /* espaço suficiente para todos os itens */
+      opacity: 1;
     }
     button {
       background: linear-gradient(to right, #FFD700, #FFC107);
@@ -138,10 +144,6 @@
       box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
       border-color: transparent;
     }
-    .social-btn i {
-      font-size: 1.4rem;
-    }
-    
     .msg {
       margin-top: 25px;
       padding: 18px;
@@ -168,7 +170,7 @@
       .social-buttons { flex-direction: column; gap: 12px; }
       .social-btn { width: 100%; justify-content: center; }
       .header img { width: 180px; }
-      .header { padding: 50px 15px 40px; }
+      .checkbox-group { gap: 16px; }
     }
   </style>
 </head>
@@ -197,6 +199,51 @@
         <div class="form-group">
           <label for="whatsapp">WhatsApp (com DDD) *</label>
           <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(62) 99999-9999" />
+        </div>
+
+        <div class="form-group">
+          <label>Desejo receber uma visita ou apresentação: *</label>
+          <div class="radio-group">
+            <div>
+              <input type="radio" id="visita_sim" name="visita" value="Sim" required />
+              <label for="visita_sim">Sim</label>
+            </div>
+            <div>
+              <input type="radio" id="visita_nao" name="visita" value="Não" />
+              <label for="visita_nao">Não</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campo de temas agora ABAIXO da descrição -->
+        <div id="temas-container">
+          <label>Tema de interesse: <small>(pode selecionar mais de um)</small></label>
+          <div class="checkbox-group">
+            <div>
+              <input type="checkbox" id="t_automacao" name="tema_automacao" value="Automação" />
+              <label for="t_automacao">Automação</label>
+            </div>
+            <div>
+              <input type="checkbox" id="t_seguranca" name="tema_seguranca" value="Segurança" />
+              <label for="t_seguranca">Segurança</label>
+            </div>
+            <div>
+              <input type="checkbox" id="t_energia" name="tema_energia" value="Energia" />
+              <label for="t_energia">Energia</label>
+            </div>
+            <div>
+              <input type="checkbox" id="t_redes" name="tema_redes" value="Redes Industriais" />
+              <label for="t_redes">Redes Industriais</label>
+            </div>
+            <div>
+              <input type="checkbox" id="t_visao" name="tema_visao" value="Visão" />
+              <label for="t_visao">Visão</label>
+            </div>
+            <div>
+              <input type="checkbox" id="t_iot" name="tema_iot" value="IoT" />
+              <label for="t_iot">IoT</label>
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -238,7 +285,7 @@
 
         <div class="form-group">
           <label for="melhorias">O que você mais gostou no treinamento e o que acredita que pode ser melhorado? *</label>
-          <textarea id="melhorias" name="melhorias" rows="5" required placeholder="Deixe aqui suas sugestões, críticas construtivas ou comentários..."></textarea>
+          <textarea id="melhorias" name="melhorias" rows="5" required placeholder="Deixe aqui suas sugestões..."></textarea>
         </div>
 
         <button type="submit">Enviar Avaliação</button>
@@ -256,12 +303,26 @@
   </div>
 
 <script>
+  const radios = document.querySelectorAll('input[name="visita"]');
+  const temasContainer = document.getElementById('temas-container');
+
+  function toggleTemas() {
+    if (document.getElementById('visita_sim').checked) {
+      temasContainer.classList.add('visible');
+    } else {
+      temasContainer.classList.remove('visible');
+      document.querySelectorAll('input[name^="tema_"]').forEach(cb => cb.checked = false);
+    }
+  }
+
+  radios.forEach(radio => radio.addEventListener('change', toggleTemas));
+
   const form = document.getElementById('form');
   const loading = document.getElementById('loading');
   const success = document.getElementById('success');
   const errorMsg = document.getElementById('error');
 
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoC9UIic1PykrLj4MzYiCLX_cOKtolpaqLfiW-JKp5L9-dguhfxpVFvhgXF1Fv6I3Zlw/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcUISOKPtcss4K2P7-9qlUZR3S449am-9KY62LTN8mEt_kZ0RUqvf4YB8t85yQ9nnwjA/exec';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -271,8 +332,6 @@
 
     const formData = new FormData(form);
 
-    console.log('Dados enviados:', Object.fromEntries(formData));
-
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
@@ -280,20 +339,18 @@
       });
 
       const result = await response.text();
-      console.log('Resposta do servidor:', result);
-
       if (result.trim() === 'Sucesso') {
         loading.classList.add('hidden');
         success.classList.remove('hidden');
         form.reset();
+        temasContainer.classList.remove('visible');
       } else {
-        throw new Error('Resposta do servidor: ' + result);
+        throw new Error(result);
       }
     } catch (err) {
-      console.error('Erro completo:', err);
       loading.classList.add('hidden');
       errorMsg.classList.remove('hidden');
-      errorMsg.textContent = 'Erro ao enviar';
+      errorMsg.textContent = 'Erro ao enviar: ' + err.message;
     }
   });
 </script>
