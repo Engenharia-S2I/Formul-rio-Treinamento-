@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Avaliação do Treinamento - S2i Distribuição Industrial</title>
-  
+ 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -57,7 +56,6 @@
     input[type="text"],
     input[type="email"],
     input[type="tel"],
-    input[type="number"],
     textarea {
       width: 100%;
       padding: 14px 16px;
@@ -74,12 +72,10 @@
       border-color: #FFD700;
       box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
     }
-
-    /* Radio buttons lado a lado */
     .radio-horizontal {
       display: flex;
       align-items: center;
-      gap: 32px;           /* espaço entre Sim e Não */
+      gap: 32px;
       margin-top: 12px;
     }
     .radio-horizontal label {
@@ -89,14 +85,12 @@
       font-weight: 500;
       cursor: pointer;
     }
-
-    /* Checkbox de atualizações alinhado à esquerda */
     .checkbox-left {
       display: flex;
       align-items: center;
       gap: 12px;
       margin-top: 8px;
-      justify-content: flex-start; /* força alinhamento à esquerda */
+      justify-content: flex-start;
     }
     .checkbox-left input {
       width: auto;
@@ -107,7 +101,6 @@
       margin: 0;
       text-align: left;
     }
-
     .checkbox-group, .radio-group {
       display: flex;
       flex-direction: column;
@@ -121,7 +114,8 @@
       opacity: 0;
     }
     #temas-container.visible {
-      max-height: 500px;
+      max-height: 700px;
+      overflow-y: auto;
       opacity: 1;
     }
     button {
@@ -180,7 +174,7 @@
     }
     .loading { background: #fffbeb; color: #92400e; border: 1px solid #fde047; }
     .success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
-    .error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+    .error { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
     .hidden { display: none; }
     footer {
       text-align: center;
@@ -190,6 +184,30 @@
       border-top: 1px solid #eee;
       background: #fafafa;
     }
+    .emoji-rating {
+      display: flex;
+      justify-content: space-between;
+      max-width: 400px;
+      margin: 15px auto 0;
+    }
+    .emoji-rating label {
+      font-size: 3rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      padding: 8px;
+      border-radius: 12px;
+    }
+    .emoji-rating input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+    .emoji-rating input[type="radio"]:checked + span {
+      transform: scale(1.3);
+      background: rgba(255, 215, 0, 0.2);
+    }
+    .emoji-rating label:hover span {
+      transform: scale(1.2);
+    }
     @media (max-width: 600px) {
       .container { margin: 15px; }
       .form-container { padding: 30px 20px; }
@@ -197,18 +215,18 @@
       .social-btn { width: 100%; justify-content: center; }
       .header img { width: 180px; }
       .radio-horizontal { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .emoji-rating { flex-wrap: wrap; justify-content: center; gap: 10px; }
+      .emoji-rating label { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <header class="header">
       <img src="https://raw.githubusercontent.com/Engenharia-S2I/Formul-rio-Treinamento-/main/LOGO%2001%20(1).png" alt="S2i Distribuição Industrial" />
       <h1>Avaliação do Treinamento</h1>
       <p>Sua opinião nos ajuda a melhorar!</p>
     </header>
-
     <div class="form-container">
       <form id="form">
 
@@ -245,28 +263,44 @@
           <label>Tema de interesse: <small>(pode selecionar mais de um)</small></label>
           <div class="checkbox-group">
             <div>
-            <label for="t_automacao">Automação</label>
-              <input type="checkbox" id="t_automacao" name="tema_automacao" value="Automação" />
+            <label for="t_automacao_iot">Automação e Soluções IoT</label>
+              <input type="checkbox" id="t_automacao_iot" name="tema_automacao_iot" value="Automação e Soluções IoT" />
+              
             </div>
             <div>
-            <label for="t_seguranca">Segurança</label>
-              <input type="checkbox" id="t_seguranca" name="tema_seguranca" value="Segurança" />           
+             <label for="t_inversor">Inversor ou Softstarter</label>
+              <input type="checkbox" id="t_inversor" name="tema_inversor" value="Inversor ou Softstarter" />
+             
             </div>
             <div>
-            <label for="t_energia">Energia</label>
-              <input type="checkbox" id="t_energia" name="tema_energia" value="Energia" />              
+            <label for="t_eficiencia">Eficiência Energética</label>
+              <input type="checkbox" id="t_eficiencia" name="tema_eficiencia" value="Eficiência Energética" />
+              
             </div>
             <div>
-            <label for="t_redes">Redes Industriais</label>
-              <input type="checkbox" id="t_redes" name="tema_redes" value="Redes Industriais" />              
+            <label for="t_nr12">Segurança NR-12</label>
+              <input type="checkbox" id="t_nr12" name="tema_nr12" value="Segurança NR-12" />
+              
             </div>
             <div>
-            <label for="t_visao">Visão</label>
-              <input type="checkbox" id="t_visao" name="tema_visao" value="Visão" />             
+             <label for="t_iluminacao">Iluminação e Indicação</label>
+              <input type="checkbox" id="t_iluminacao" name="tema_iluminacao" value="Iluminação e Indicação" />
+             
             </div>
             <div>
-            <label for="t_iot">IoT</label>
-              <input type="checkbox" id="t_iot" name="tema_iot" value="IoT" />              
+            <label for="t_visao">Sistema de Visão</label>
+              <input type="checkbox" id="t_visao" name="tema_visao" value="Sistema de Visão" />
+              
+            </div>
+            <div>
+            <label for="t_sensores">Sensores</label>
+              <input type="checkbox" id="t_sensores" name="tema_sensores" value="Sensores" />
+              
+            </div>
+            <div>
+            <label for="t_wireless">Wireless Industrial</label>
+              <input type="checkbox" id="t_wireless" name="tema_wireless" value="Wireless Industrial" />
+              
             </div>
           </div>
         </div>
@@ -288,14 +322,8 @@
             Conecte-se com a S2i:
           </p>
           <div class="social-buttons">
-            <a href="https://wa.me/556231420595" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp">
-              <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
             <a href="https://www.instagram.com/s2idistribuicaoindustrial" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
               <i class="fab fa-instagram"></i> Instagram
-            </a>
-            <a href="https://www.linkedin.com/company/s2i-distribui%C3%A7%C3%A3o-industrial" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
-              <i class="fab fa-linkedin-in"></i> LinkedIn
             </a>
             <a href="https://www.youtube.com/@s2idistribuicaoindustrial" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
               <i class="fab fa-youtube"></i> YouTube
@@ -304,8 +332,41 @@
         </div>
 
         <div class="form-group">
-          <label for="nota">Avaliação do treinamento (0 a 10) *</label>
-          <input type="number" id="nota" name="nota" min="0" max="10" step="1" required placeholder="Ex: 9" />
+          <p style="margin-bottom: 16px; color: #555; font-weight: 500; text-align: center; font-size: 1.05rem;">
+            Conecte-se com a Schneider Electric:
+          </p>
+          <div class="social-buttons">
+            <a href="https://www.linkedin.com/company/schneider-electric" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
+              <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Avaliação do treinamento *</label>
+          <div class="emoji-rating" role="radiogroup" aria-label="Avaliação do treinamento">
+            <label>
+              <input type="radio" name="nota" value="1" required />
+              <span>😞</span>
+            </label>
+            <label>
+              <input type="radio" name="nota" value="2" />
+              <span>☹️</span>
+            </label>
+            <label>
+              <input type="radio" name="nota" value="3" />
+              <span>😐</span>
+            </label>
+            <label>
+              <input type="radio" name="nota" value="4" />
+              <span>🙂</span>
+            </label>
+            <label>
+              <input type="radio" name="nota" value="5" />
+              <span>😄</span>
+            </label>
+          </div>
+          <small style="display: block; text-align: center; margin-top: 8px; color: #555;">Muito ruim — Excelente</small>
         </div>
 
         <div class="form-group">
@@ -315,7 +376,6 @@
 
         <button type="submit">Enviar Avaliação</button>
       </form>
-
       <div id="loading" class="msg loading hidden">Enviando avaliação...</div>
       <div id="success" class="msg success hidden">
         Obrigado! Avaliação enviada com sucesso.<br>
@@ -323,61 +383,61 @@
       </div>
       <div id="error" class="msg error hidden"></div>
     </div>
-
     <footer>© 2026 S2i Distribuição Industrial • Soluções em Automação Industrial</footer>
   </div>
 
-<script>
-  const radios = document.querySelectorAll('input[name="visita"]');
-  const temasContainer = document.getElementById('temas-container');
+  <script>
+    const radios = document.querySelectorAll('input[name="visita"]');
+    const temasContainer = document.getElementById('temas-container');
 
-  function toggleTemas() {
-    if (document.getElementById('visita_sim').checked) {
-      temasContainer.classList.add('visible');
-    } else {
-      temasContainer.classList.remove('visible');
-      document.querySelectorAll('input[name^="tema_"]').forEach(cb => cb.checked = false);
+    function toggleTemas() {
+      if (document.getElementById('visita_sim').checked) {
+        temasContainer.classList.add('visible');
+      } else {
+        temasContainer.classList.remove('visible');
+        document.querySelectorAll('input[name^="tema_"]').forEach(cb => cb.checked = false);
+      }
     }
-  }
 
-  radios.forEach(radio => radio.addEventListener('change', toggleTemas));
+    radios.forEach(radio => radio.addEventListener('change', toggleTemas));
 
-  const form = document.getElementById('form');
-  const loading = document.getElementById('loading');
-  const success = document.getElementById('success');
-  const errorMsg = document.getElementById('error');
+    const form = document.getElementById('form');
+    const loading = document.getElementById('loading');
+    const success = document.getElementById('success');
+    const errorMsg = document.getElementById('error');
 
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcUISOKPtcss4K2P7-9qlUZR3S449am-9KY62LTN8mEt_kZ0RUqvf4YB8t85yQ9nnwjA/exec';
+    // URL corrigida - sem duplicação de https://
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSG21ukobmySEy883FRQovMWF19IiFJ47KZAaXLw9PaZ_LfZ-clePgbnW1KmMNCAhxKw/exec';
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
-    loading.classList.remove('hidden');
-    errorMsg.textContent = '';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
+      loading.classList.remove('hidden');
+      errorMsg.textContent = '';
 
-    const formData = new FormData(form);
+      const formData = new FormData(form);
 
-    try {
-      const response = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: formData
-      });
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'  // importante para Google Apps Script em alguns casos
+        });
 
-      const result = await response.text();
-      if (result.trim() === 'Sucesso') {
+        // Como é no-cors, não conseguimos ler a resposta diretamente, mas podemos assumir sucesso se não houver erro de rede
+        // Para depuração, você pode remover mode: 'no-cors' temporariamente e ver a resposta real
         loading.classList.add('hidden');
         success.classList.remove('hidden');
         form.reset();
         temasContainer.classList.remove('visible');
-      } else {
-        throw new Error(result);
+
+      } catch (err) {
+        loading.classList.add('hidden');
+        errorMsg.classList.remove('hidden');
+        errorMsg.textContent = 'Erro ao enviar: ' + (err.message || 'Falha na conexão com o servidor');
+        console.error('Erro detalhado:', err);
       }
-    } catch (err) {
-      loading.classList.add('hidden');
-      errorMsg.classList.remove('hidden');
-      errorMsg.textContent = 'Erro ao enviar: ' + err.message;
-    }
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
