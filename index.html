@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Avaliação do Treinamento - S2i Distribuição Industrial</title>
- 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -26,7 +25,7 @@
       border: 1px solid #eee;
     }
     .header {
-      background: linear-gradient(to bottom, #fffef5 0%, #fffcce 15%, #fff399 35%, #ffea60 60%, #ffd900 100%);
+      background: linear-gradient(to bottom, #e8f5ed 0%, #d4f0dd 15%, #b3e5c5 35%, #8cd9a8 60%, #009E4D 100%);
       color: #000;
       text-align: center;
       padding: 60px 20px 50px;
@@ -69,8 +68,8 @@
     input:focus,
     textarea:focus {
       outline: none;
-      border-color: #FFD700;
-      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+      border-color: #009E4D;
+      box-shadow: 0 0 0 3px rgba(0, 158, 77, 0.2);
     }
     .radio-horizontal {
       display: flex;
@@ -94,7 +93,7 @@
     }
     .checkbox-left input {
       width: auto;
-      accent-color: #FFD700;
+      accent-color: #009E4D;
       flex-shrink: 0;
     }
     .checkbox-left label {
@@ -119,8 +118,8 @@
       opacity: 1;
     }
     button {
-      background: linear-gradient(to right, #FFD700, #FFC107);
-      color: #000;
+      background: linear-gradient(to right, #009E4D, #3DCD58);
+      color: #fff;
       border: none;
       padding: 18px;
       font-size: 1.15rem;
@@ -129,11 +128,11 @@
       cursor: pointer;
       width: 100%;
       transition: all 0.3s;
-      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
+      box-shadow: 0 6px 20px rgba(0, 158, 77, 0.35);
     }
     button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 158, 77, 0.5);
     }
     .social-buttons {
       margin: 20px 0;
@@ -149,7 +148,7 @@
       padding: 10px 18px;
       background: transparent;
       color: #222;
-      border: 2px solid #FFD700;
+      border: 2px solid #009E4D;
       border-radius: 50px;
       font-weight: 600;
       text-decoration: none;
@@ -158,10 +157,10 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .social-btn:hover {
-      background: linear-gradient(to right, #FFD700, #edf946);
-      color: #000;
+      background: linear-gradient(to right, #009E4D, #3DCD58);
+      color: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+      box-shadow: 0 6px 16px rgba(0, 158, 77, 0.4);
       border-color: transparent;
     }
     .msg {
@@ -172,7 +171,7 @@
       font-weight: 600;
       font-size: 1.05rem;
     }
-    .loading { background: #fffbeb; color: #92400e; border: 1px solid #fde047; }
+    .loading { background: #e8f5ed; color: #0a5c2e; border: 1px solid #b3e5c5; }
     .success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
     .error { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
     .hidden { display: none; }
@@ -203,7 +202,7 @@
     }
     .emoji-rating input[type="radio"]:checked + span {
       transform: scale(1.3);
-      background: rgba(255, 215, 0, 0.2);
+      background: rgba(0, 158, 77, 0.2);
     }
     .emoji-rating label:hover span {
       transform: scale(1.2);
@@ -229,22 +228,18 @@
     </header>
     <div class="form-container">
       <form id="form">
-
         <div class="form-group">
           <label for="empresa">Nome da empresa *</label>
           <input type="text" id="empresa" name="empresa" required />
         </div>
-
         <div class="form-group">
           <label for="setor">Setor que trabalha *</label>
           <input type="text" id="setor" name="setor" required placeholder="Ex: Manutenção, Automação, Produção..." />
         </div>
-
         <div class="form-group">
           <label for="whatsapp">WhatsApp (com DDD) *</label>
           <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(62) 99999-9999" />
         </div>
-
         <div class="form-group">
           <label>Desejo receber uma visita ou apresentação: *</label>
           <div class="radio-horizontal">
@@ -258,65 +253,53 @@
             </label>
           </div>
         </div>
-
         <div id="temas-container">
           <label>Tema de interesse: <small>(pode selecionar mais de um)</small></label>
           <div class="checkbox-group">
             <div>
             <label for="t_automacao_iot">Automação e Soluções IoT</label>
               <input type="checkbox" id="t_automacao_iot" name="tema_automacao_iot" value="Automação e Soluções IoT" />
-              
             </div>
             <div>
              <label for="t_inversor">Inversor ou Softstarter</label>
               <input type="checkbox" id="t_inversor" name="tema_inversor" value="Inversor ou Softstarter" />
-             
             </div>
             <div>
             <label for="t_eficiencia">Eficiência Energética</label>
               <input type="checkbox" id="t_eficiencia" name="tema_eficiencia" value="Eficiência Energética" />
-              
             </div>
             <div>
             <label for="t_nr12">Segurança NR-12</label>
               <input type="checkbox" id="t_nr12" name="tema_nr12" value="Segurança NR-12" />
-              
             </div>
             <div>
              <label for="t_iluminacao">Iluminação e Indicação</label>
               <input type="checkbox" id="t_iluminacao" name="tema_iluminacao" value="Iluminação e Indicação" />
-             
             </div>
             <div>
             <label for="t_visao">Sistema de Visão</label>
               <input type="checkbox" id="t_visao" name="tema_visao" value="Sistema de Visão" />
-              
             </div>
             <div>
             <label for="t_sensores">Sensores</label>
               <input type="checkbox" id="t_sensores" name="tema_sensores" value="Sensores" />
-              
             </div>
             <div>
             <label for="t_wireless">Wireless Industrial</label>
               <input type="checkbox" id="t_wireless" name="tema_wireless" value="Wireless Industrial" />
-              
             </div>
           </div>
         </div>
-
         <div class="form-group">
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required placeholder="seuemail@empresa.com" />
         </div>
-
         <div class="form-group">
           <div class="checkbox-left">
             <input type="checkbox" id="atualizacoes" name="atualizacoes" />
             <label for="atualizacoes">Desejo receber atualizações técnicas periódicas da S2i</label>
           </div>
         </div>
-
         <div class="form-group">
           <p style="margin-bottom: 16px; color: #555; font-weight: 500; text-align: center; font-size: 1.05rem;">
             Conecte-se com a S2i:
@@ -330,7 +313,6 @@
             </a>
           </div>
         </div>
-
         <div class="form-group">
           <p style="margin-bottom: 16px; color: #555; font-weight: 500; text-align: center; font-size: 1.05rem;">
             Conecte-se com a Schneider Electric:
@@ -341,7 +323,6 @@
             </a>
           </div>
         </div>
-
         <div class="form-group">
           <label>Avaliação do treinamento *</label>
           <div class="emoji-rating" role="radiogroup" aria-label="Avaliação do treinamento">
@@ -368,12 +349,10 @@
           </div>
           <small style="display: block; text-align: center; margin-top: 8px; color: #555;">Muito ruim — Excelente</small>
         </div>
-
         <div class="form-group">
           <label for="melhorias">O que você mais gostou no treinamento e o que acredita que pode ser melhorado? *</label>
           <textarea id="melhorias" name="melhorias" rows="5" required placeholder="Deixe aqui suas sugestões..."></textarea>
         </div>
-
         <button type="submit">Enviar Avaliação</button>
       </form>
       <div id="loading" class="msg loading hidden">Enviando avaliação...</div>
@@ -385,11 +364,9 @@
     </div>
     <footer>© 2026 S2i Distribuição Industrial • Soluções em Automação Industrial</footer>
   </div>
-
   <script>
     const radios = document.querySelectorAll('input[name="visita"]');
     const temasContainer = document.getElementById('temas-container');
-
     function toggleTemas() {
       if (document.getElementById('visita_sim').checked) {
         temasContainer.classList.add('visible');
@@ -398,39 +375,31 @@
         document.querySelectorAll('input[name^="tema_"]').forEach(cb => cb.checked = false);
       }
     }
-
     radios.forEach(radio => radio.addEventListener('change', toggleTemas));
-
     const form = document.getElementById('form');
     const loading = document.getElementById('loading');
     const success = document.getElementById('success');
     const errorMsg = document.getElementById('error');
-
     // URL corrigida - sem duplicação de https://
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSG21ukobmySEy883FRQovMWF19IiFJ47KZAaXLw9PaZ_LfZ-clePgbnW1KmMNCAhxKw/exec';
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       [loading, success, errorMsg].forEach(el => el.classList.add('hidden'));
       loading.classList.remove('hidden');
       errorMsg.textContent = '';
-
       const formData = new FormData(form);
-
       try {
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           body: formData,
-          mode: 'no-cors'  // importante para Google Apps Script em alguns casos
+          mode: 'no-cors' // importante para Google Apps Script em alguns casos
         });
-
         // Como é no-cors, não conseguimos ler a resposta diretamente, mas podemos assumir sucesso se não houver erro de rede
         // Para depuração, você pode remover mode: 'no-cors' temporariamente e ver a resposta real
         loading.classList.add('hidden');
         success.classList.remove('hidden');
         form.reset();
         temasContainer.classList.remove('visible');
-
       } catch (err) {
         loading.classList.add('hidden');
         errorMsg.classList.remove('hidden');
