@@ -257,35 +257,35 @@
           <label>Tema de interesse: <small>(pode selecionar mais de um)</small></label>
           <div class="checkbox-group">
             <div>
-            <label for="t_automacao_iot">Automação e Soluções IoT</label>
+              <label for="t_automacao_iot">Automação e Soluções IoT</label>
               <input type="checkbox" id="t_automacao_iot" name="tema_automacao_iot" value="Automação e Soluções IoT" />
             </div>
             <div>
-             <label for="t_inversor">Inversor ou Softstarter</label>
+              <label for="t_inversor">Inversor ou Softstarter</label>
               <input type="checkbox" id="t_inversor" name="tema_inversor" value="Inversor ou Softstarter" />
             </div>
             <div>
-            <label for="t_eficiencia">Eficiência Energética</label>
+              <label for="t_eficiencia">Eficiência Energética</label>
               <input type="checkbox" id="t_eficiencia" name="tema_eficiencia" value="Eficiência Energética" />
             </div>
             <div>
-            <label for="t_nr12">Segurança NR-12</label>
+              <label for="t_nr12">Segurança NR-12</label>
               <input type="checkbox" id="t_nr12" name="tema_nr12" value="Segurança NR-12" />
             </div>
             <div>
-             <label for="t_iluminacao">Iluminação e Indicação</label>
+              <label for="t_iluminacao">Iluminação e Indicação</label>
               <input type="checkbox" id="t_iluminacao" name="tema_iluminacao" value="Iluminação e Indicação" />
             </div>
             <div>
-            <label for="t_visao">Sistema de Visão</label>
+              <label for="t_visao">Sistema de Visão</label>
               <input type="checkbox" id="t_visao" name="tema_visao" value="Sistema de Visão" />
             </div>
             <div>
-            <label for="t_sensores">Sensores</label>
+              <label for="t_sensores">Sensores</label>
               <input type="checkbox" id="t_sensores" name="tema_sensores" value="Sensores" />
             </div>
             <div>
-            <label for="t_wireless">Wireless Industrial</label>
+              <label for="t_wireless">Wireless Industrial</label>
               <input type="checkbox" id="t_wireless" name="tema_wireless" value="Wireless Industrial" />
             </div>
           </div>
@@ -308,8 +308,8 @@
             <a href="https://www.instagram.com/s2idistribuicaoindustrial" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
               <i class="fab fa-instagram"></i> Instagram
             </a>
-            <a href="https://www.youtube.com/@s2idistribuicaoindustrial" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
-              <i class="fab fa-youtube"></i> YouTube
+            <a href="https://www.linkedin.com/company/s2i-distribui%C3%A7%C3%A3o-industrial" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
+              <i class="fab fa-linkedin-in"></i> LinkedIn
             </a>
           </div>
         </div>
@@ -318,6 +318,9 @@
             Conecte-se com a Schneider Electric:
           </p>
           <div class="social-buttons">
+            <a href="https://www.instagram.com/schneiderelectric" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
             <a href="https://www.linkedin.com/company/schneider-electric" target="_blank" rel="noopener noreferrer" class="social-btn linkedin">
               <i class="fab fa-linkedin-in"></i> LinkedIn
             </a>
@@ -380,7 +383,6 @@
     const loading = document.getElementById('loading');
     const success = document.getElementById('success');
     const errorMsg = document.getElementById('error');
-    // URL corrigida - sem duplicação de https://
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSG21ukobmySEy883FRQovMWF19IiFJ47KZAaXLw9PaZ_LfZ-clePgbnW1KmMNCAhxKw/exec';
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -392,10 +394,8 @@
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           body: formData,
-          mode: 'no-cors' // importante para Google Apps Script em alguns casos
+          mode: 'no-cors'
         });
-        // Como é no-cors, não conseguimos ler a resposta diretamente, mas podemos assumir sucesso se não houver erro de rede
-        // Para depuração, você pode remover mode: 'no-cors' temporariamente e ver a resposta real
         loading.classList.add('hidden');
         success.classList.remove('hidden');
         form.reset();
